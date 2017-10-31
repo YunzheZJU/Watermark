@@ -47,7 +47,7 @@ def add_watermark(src, wm=WM_PATH):
     s_img.close()
     w_img.close()
     d_img.close()
-    return path_dst.split("static/")[-1].replace("\\", "/")
+    return path_dst.split("static/")[-1]
 
 
 def read_watermark(src):
@@ -72,12 +72,11 @@ def read_watermark(src):
     # Close the files.
     s_img.close()
     d_img.close()
-    return path_dst.split("static/")[-1].replace("\\", "/")
+    return path_dst.split("static/")[-1]
 
 
 if __name__ == '__main__':
     src_file = os.path.join(SRC_PATH, "test.jpg")
-    wm_file = os.path.join(SRC_PATH, "wm.jpg")
     result_file = os.path.join(SRC_PATH, "result.png")
-    print add_watermark(src_file, wm_file)
+    print add_watermark(src_file)
     print read_watermark(result_file)
