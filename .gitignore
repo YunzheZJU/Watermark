@@ -106,4 +106,4 @@ venv.bak/
 .mypy_cache/
 
 .idea/
-test.jpg
+images/
