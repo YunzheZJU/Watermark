@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-import numpy as np
-from PIL import Image
+from utils import add_watermark, read_watermark
 from flask import Flask, render_template, g, make_response, json, request, session, redirect, url_for
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from flask_wtf import FlaskForm
@@ -29,12 +28,12 @@ def upload_file():
     form = UploadForm()
     if form.validate_on_submit():
         filename = photos.save(form.photo.data)
-        file_url = photos.url(filename)
+        # file_url = photos.url(filename)
         file_path = os.path.join(app.config['UPLOADED_PHOTOS_DEST'], filename)
-        # TODO: Add watermark
-        img = Image.open(file_path)
-        img_arr = np.array(img)
-        img.show()
+        # Add watermark
+        # result_path = add_watermark(file_path)
+        result_path = read_watermark(file_path)
+        file_url = url_for('static', filename=result_path)
     else:
         file_url = None
     return render_template('index.html', form=form, file_url=file_url)
