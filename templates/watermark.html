@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% set active_page = "Watermark" %}
+
+{% block title %}{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+        <h1 class="mt-5">添加水印</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input id="photo" name="photo" type="file">
+            <input id="add" name="submit" type="submit" value="添加水印">
+            <input id="read" name="submit" type="submit" value="提取水印">
+        </form>
+
+        {% if file_url %}
+        <br><img src="{{ file_url }}">
+        {% endif %}
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
