@@ -3,6 +3,7 @@ import os
 from utils import add_watermark, read_watermark
 from flask import Flask, render_template, request, url_for
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
+from config import WM_PATH
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'I have a dream'
@@ -22,8 +23,9 @@ def watermark():
         result_path = None
         filename = photos.save(request.files['photo'])
         file_path = os.path.join(app.config['UPLOADED_PHOTOS_DEST'], filename)
+        wm_path = os.path.join(app.root_path, WM_PATH)
         if request.form['submit'] == u'添加水印':
-            result_path = add_watermark(file_path)
+            result_path = add_watermark(file_path, wm_path)
         elif request.form['submit'] == u'提取水印':
             result_path = read_watermark(file_path)
         file_url = url_for('static', filename=result_path)
@@ -31,4 +33,4 @@ def watermark():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='127.0.0.1', port=8080)
